@@ -1,5 +1,5 @@
 '由于包含加解密等安全信息，本文件中的部分代码已被删除
-'本 fork 已按官方版常量修改（Official 分支、解除下载限制）
+'本 fork：登录与上报配置走环境变量 / CI Secret 注入，不在公开代码中硬编码
 
 Friend Module ModSecret
 
@@ -7,12 +7,13 @@ Friend Module ModSecret
     Public Const VersionBranchMain As String = "Official"
     '在开源版的注册表与常规版的注册表隔离，以防数据冲突
     Public Const RegFolder As String = "PCL"
-    '用于微软登录的 ClientId
-    Public OAuthClientId As String = "fe72edc2-3a6f-4280-90e8-e2beb64ce7e1"
+    '用于微软登录的 ClientId（由 CI 在编译时通过仓库 Secret 注入，或本机环境变量提供）
+    Public OAuthClientId As String = If(Environment.GetEnvironmentVariable("PCL_MS_CLIENT_ID"), "")
     'CurseForge API Key
     Public CurseForgeAPIKey As String = If(Environment.GetEnvironmentVariable("PCL_CURSEFORGE_API_KEY"), "")
     '用于匿名数据收集的腾讯云日志服务上报 URL，形如 https://{region}.cls.tencentcs.com/track?topic_id={topic_id}
-    Public Const ClsBaseUrl As String = "https://ap-shanghai.cls.tencentcs.com/track?topic_id=pcl-remote-1253424809"
+    '留空：不向上作者的官方 CLS 端点发送数据
+    Public Const ClsBaseUrl As String = ""
 
 #Region "网络鉴权"
 
