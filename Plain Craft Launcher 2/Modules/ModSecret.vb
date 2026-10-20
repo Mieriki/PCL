@@ -1,4 +1,5 @@
 '由于包含加解密等安全信息，本文件中的部分代码已被删除
+'本 fork 已按官方版常量修改（Official 分支、解除下载限制）
 
 Friend Module ModSecret
 
